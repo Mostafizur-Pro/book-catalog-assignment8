@@ -20,7 +20,8 @@ enum OrderStatus {
 }
 
 model User {
-  id                String            @id @default(uuid())
+  // id                String            @id @default(uuid())
+  id                String            @id
   name              String
   email             String            @unique
   password          String
@@ -37,7 +38,7 @@ model User {
 }
 
 model Category {
-  id        String   @id @default(uuid())
+  id        String   @id
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,17 +48,18 @@ model Category {
 }
 
 model Book {
-  id              String   @id @default(uuid())
+  // id              String   @id @default(uuid())
+  id              String        @id
   title           String
   author          String
   price           Float
   genre           String
   publicationDate String
-  category        Category @relation(fields: [categoryId], references: [id])
+  category        Category      @relation(fields: [categoryId], references: [id])
   categoryId      String
   orderBooks      OrderedBook[]
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 
   reviewsAndRatings ReviewAndRating[]
 
@@ -65,7 +67,8 @@ model Book {
 }
 
 model ReviewAndRating {
-  id        String   @id @default(uuid())
+  // id        String   @id @default(uuid())
+  id        String   @id
   review    String
   rating    Int
   user      User     @relation(fields: [userId], references: [id])
@@ -79,7 +82,8 @@ model ReviewAndRating {
 }
 
 model Order {
-  id           String        @id @default(uuid())
+  // id           String        @id @default(uuid())
+  id           String        @id
   userId       String
   orderedBooks OrderedBook[]
   user         User          @relation(fields: [userId], references: [id])
@@ -91,7 +95,8 @@ model Order {
 }
 
 model OrderedBook {
-  id        String   @id @default(uuid())
+  // id        String   @id @default(uuid())
+  id        String   @id
   orderId   String
   order     Order    @relation(fields: [orderId], references: [id])
   bookId    String

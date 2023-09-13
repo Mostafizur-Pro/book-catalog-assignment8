@@ -9,4 +9,5 @@ const category_controller_1 = require("./category.controller");
 const router = express_1.default.Router();
 router.get('/', category_controller_1.CategoryController.getAllCategories);
 router.post('/create-category', category_controller_1.CategoryController.createCategory);
+router.get('/:id', category_controller_1.CategoryController.getCategoryById);
 exports.CategoryRoutes = router;

@@ -30,7 +30,24 @@ const createCategory = catchAsync(async (req:Request, res: Response):Promise<Cat
     return category;
 });
 
+
+const getCategoryById = catchAsync(async (req:Request, res: Response):Promise<Category> => {
+    const categoryId = req.params.id;
+    const category = await CategoryService.getCategoryById(categoryId);
+
+    sendResponse( res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Category fetched successfully',
+        data: category
+    });
+
+    return category;
+});
+
+
 export const CategoryController = {
     createCategory,
-    getAllCategories
+    getAllCategories,
+    getCategoryById
 }

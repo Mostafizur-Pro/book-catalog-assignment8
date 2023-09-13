@@ -1,7 +1,7 @@
 {
   "name": "hello-prisma",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "MIT",
   "scripts": {
     "start-dev": "nodemon ./src/index.ts",
@@ -9,6 +9,8 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "Mostafizur Rahman",
+  
   "dependencies": {
     "@prisma/client": "^5.0.0",
     "@types/cors": "^2.8.13",

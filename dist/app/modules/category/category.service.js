@@ -37,7 +37,22 @@ const getAllCategories = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     return categories;
 });
+const getCategoryById = (categoryId) => __awaiter(void 0, void 0, void 0, function* () {
+    const category = yield prisma_1.default.category.findUnique({
+        where: {
+            id: categoryId
+        },
+        include: {
+            books: true
+        }
+    });
+    if (!category) {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Category not found');
+    }
+    return category;
+});
 exports.CategoryService = {
     createCategory,
-    getAllCategories
+    getAllCategories,
+    getCategoryById
 };

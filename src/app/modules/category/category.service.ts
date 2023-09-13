@@ -27,7 +27,24 @@ const createCategory = async (payload: Category): Promise<Category> => {
     return categories;
 };
 
+const getCategoryById = async ( categoryId: string ): Promise<Category> => {
+  const category = await prisma.category.findUnique({
+      where: {
+          id: categoryId
+      },
+      include: {
+          books: true
+      }
+  });
+  if (!category) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Category not found');
+  }
+
+  return category;
+};
+
 export const CategoryService = {
     createCategory,
-    getAllCategories
+    getAllCategories,
+    getCategoryById
 }

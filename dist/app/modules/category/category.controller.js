@@ -37,7 +37,19 @@ const createCategory = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
     });
     return category;
 }));
+const getCategoryById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const categoryId = req.params.id;
+    const category = yield category_service_1.CategoryService.getCategoryById(categoryId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Category fetched successfully',
+        data: category
+    });
+    return category;
+}));
 exports.CategoryController = {
     createCategory,
-    getAllCategories
+    getAllCategories,
+    getCategoryById
 };
