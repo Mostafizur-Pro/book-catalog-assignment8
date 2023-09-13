@@ -43,8 +43,29 @@ const getCategoryById = async ( categoryId: string ): Promise<Category> => {
   return category;
 };
 
+const updateCategoryById = async ( categoryId: string, payload: Partial<Category> ): Promise<Category> => {
+  // handle duplicate data in existing categories (title) in database
+  const isExist = await prisma.category.findFirst({
+      where: {
+          title: payload.title
+      }
+  });
+  if (isExist) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Category already exists');
+  }
+  const category = await prisma.category.update({
+      where: {
+          id: categoryId
+      },
+      data: payload
+  });
+
+  return category;
+};
+
 export const CategoryService = {
     createCategory,
     getAllCategories,
-    getCategoryById
+    getCategoryById,
+    updateCategoryById
 }
