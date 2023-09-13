@@ -1,6 +1,7 @@
 import { Category } from "@prisma/client";
-import prisma from "../../shared/prisma";
-
+import prisma from "../../../shared/prisma";
+import ApiError from "../../../errors/ApiError";
+import httpStatus from "http-status";
 
 
 const createCategory = async (payload: Category): Promise<Category> => {
@@ -18,6 +19,15 @@ const createCategory = async (payload: Category): Promise<Category> => {
     return category;
   };
 
+  const getAllCategories = async (): Promise<Category[]> => {
+    const categories = await prisma.category.findMany({});
+    if (categories.length <= 0) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Categories not found');
+    }
+    return categories;
+};
+
 export const CategoryService = {
-    createCategory
+    createCategory,
+    getAllCategories
 }
