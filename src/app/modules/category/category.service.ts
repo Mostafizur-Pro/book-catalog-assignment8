@@ -63,9 +63,25 @@ const updateCategoryById = async ( categoryId: string, payload: Partial<Category
   return category;
 };
 
+const deleteCategoryById = async ( categoryId: string ): Promise<Category> => {
+  const category = await prisma.category.delete({
+      where: {
+          id: categoryId
+      }
+  });
+
+  if (!category) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Category not found');
+  }
+
+  return category;
+
+};
+
 export const CategoryService = {
     createCategory,
     getAllCategories,
     getCategoryById,
-    updateCategoryById
+    updateCategoryById,
+    deleteCategoryById
 }
