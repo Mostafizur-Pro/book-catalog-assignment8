@@ -48,8 +48,33 @@ const getCategoryById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0
     });
     return category;
 }));
+const updateCategoryById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const categoryId = req.params.id;
+    const payload = req.body;
+    const category = yield category_service_1.CategoryService.updateCategoryById(categoryId, payload);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Category updated successfully',
+        data: category
+    });
+    return category;
+}));
+const deleteCategoryById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const categoryId = req.params.id;
+    const category = yield category_service_1.CategoryService.deleteCategoryById(categoryId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Category deleted successfully',
+        data: category
+    });
+    return category;
+}));
 exports.CategoryController = {
     createCategory,
     getAllCategories,
-    getCategoryById
+    getCategoryById,
+    updateCategoryById,
+    deleteCategoryById
 };
